@@ -1,0 +1,42 @@
+[
+  {
+    "id": "sort-name-asc",
+    "description": "Products sorted by name A to Z",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "sortOption": "az",
+    "sortLabel": "Name (A to Z)",
+    "sortBy": "name",
+    "order": "asc"
+  },
+  {
+    "id": "sort-name-desc",
+    "description": "Products sorted by name Z to A",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "sortOption": "za",
+    "sortLabel": "Name (Z to A)",
+    "sortBy": "name",
+    "order": "desc"
+  },
+  {
+    "id": "sort-price-asc",
+    "description": "Products sorted by price low to high",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "sortOption": "lohi",
+    "sortLabel": "Price (low to high)",
+    "sortBy": "price",
+    "order": "asc"
+  },
+  {
+    "id": "sort-price-desc",
+    "description": "Products sorted by price high to low",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "sortOption": "hilo",
+    "sortLabel": "Price (high to low)",
+    "sortBy": "price",
+    "order": "desc"
+  }
+]

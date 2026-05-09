@@ -49,4 +49,17 @@ export class InventoryPage {
   async openCart(): Promise<void> {
     await this.page.getByTestId('shopping-cart-link').click();
   }
+
+  async selectSortOption(value: 'az' | 'za' | 'lohi' | 'hilo'): Promise<void> {
+    await this.page.getByTestId('product-sort-container').selectOption(value);
+  }
+
+  async getAllProductNames(): Promise<string[]> {
+    return this.page.locator('.inventory_item_name').allTextContents();
+  }
+
+  async getAllProductPrices(): Promise<number[]> {
+    const priceTexts = await this.page.locator('.inventory_item_price').allTextContents();
+    return priceTexts.map((p) => parseFloat(p.replace('$', '')));
+  }
 }
