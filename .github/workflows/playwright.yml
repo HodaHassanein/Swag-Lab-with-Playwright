@@ -68,3 +68,20 @@ jobs:
           fi
           echo "body=Repo: ${{ github.repository }} | Branch: ${{ github.ref_name }} | Trigger: ${{ github.event_name }} | Report: ${RUN_URL}" >> $GITHUB_OUTPUT
 
+      - name: Send email notification
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          to: ${{ secrets.MAIL_TO }}
+          from: SwagLab CI <${{ secrets.MAIL_USERNAME }}>
+          subject: ${{ steps.summary.outputs.title }}
+          body: |
+            ${{ steps.summary.outputs.body }}
+
+            View report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
