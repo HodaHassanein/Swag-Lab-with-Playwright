@@ -1,0 +1,14 @@
+[
+  {
+    "id": "checkout-two-products-end-to-end",
+    "description": "Add 1st and 5th products, checkout end-to-end, then Back Home to inventory",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "expectedInventoryVisibleText": "Products",
+    "productPositions": [1, 5],
+    "firstNameEnvKey": "E2E_CHECKOUT_FIRST_NAME",
+    "lastNameEnvKey": "E2E_CHECKOUT_LAST_NAME",
+    "postalCodeEnvKey": "E2E_CHECKOUT_POSTAL_CODE",
+    "expectedCompleteHeaderContains": "Thank you for your order!"
+  }
+]

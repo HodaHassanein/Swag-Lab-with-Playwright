@@ -1,0 +1,21 @@
+[
+  {
+    "id": "cart-remove-one-among-added-Items",
+    "scenarioKind": "remove_one_among_added",
+    "description": "On cart page, remove one product by name taken from those just added (by order)",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "expectedInventoryVisibleText": "Products",
+    "productPositions": [1, 5],
+    "removeAmongAddedOneBasedIndex": 1
+  },
+  {
+    "id": "cart-empty-remove-all-items",
+    "scenarioKind": "empty_cart",
+    "description": "Remove every item from cart and verify cart is empty",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "expectedInventoryVisibleText": "Products",
+    "productPositions": [1, 2, 3]
+  }
+]

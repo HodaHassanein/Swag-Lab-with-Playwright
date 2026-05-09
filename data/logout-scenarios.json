@@ -1,0 +1,8 @@
+[
+  {
+    "id": "logout-returns-to-login",
+    "description": "After successful login, full logout returns to login page with form visible",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD"
+  }
+]

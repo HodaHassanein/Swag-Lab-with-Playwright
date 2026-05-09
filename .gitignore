@@ -1,0 +1,19 @@
+# ── Sensitive / local config ──────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Dependencies ──────────────────────────────────────────
+node_modules/
+
+# ── Playwright artifacts ───────────────────────────────────
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# ── OS / editor ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log

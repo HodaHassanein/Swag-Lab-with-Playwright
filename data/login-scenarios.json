@@ -1,0 +1,21 @@
+[
+  {
+    "id": "successful-Login",
+    "description": "Successful login with valid credentials redirects to inventory",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "expectSuccess": true,
+    "expectedInventoryUrlPart": "inventory.html",
+    "expectedPageTitlePart": "Swag Labs",
+    "expectedInventoryVisibleText": "Products"
+  },
+  {
+    "id": "invalid-Login",
+    "description": "Wrong credentials shows error and stay on login",
+    "usernameEnvKey": "E2E_INVALID_USERNAME",
+    "passwordEnvKey": "E2E_INVALID_PASSWORD",
+    "expectSuccess": false,
+    "expectedErrorContains": "Username and password do not match",
+    "expectedInventoryVisibleText": "Products"
+  }
+]

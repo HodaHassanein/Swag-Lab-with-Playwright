@@ -1,0 +1,22 @@
+{
+  "name": "ops-tracking",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:stg": "cross-env TEST_ENV=stg playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:demo": "cross-env E2E_SLOW_MO=500 playwright test --headed",
+    "test:e2e:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5"
+  }
+}

@@ -1,0 +1,86 @@
+name: Playwright E2E
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 4 * * *'   # 06:00 Egypt (UTC+2) → 04:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: playwright-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      TEST_ENV: default
+      E2E_VALID_USERNAME: standard_user
+      E2E_VALID_PASSWORD: secret_sauce
+      E2E_INVALID_USERNAME: not_a_real_user
+      E2E_INVALID_PASSWORD: wrong_password
+      E2E_CHECKOUT_FIRST_NAME: Test
+      E2E_CHECKOUT_LAST_NAME: User
+      E2E_CHECKOUT_POSTAL_CODE: '12345'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Run all Playwright tests
+        continue-on-error: true
+        id: run_tests
+        run: npx playwright test
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Build summary
+        if: ${{ !cancelled() }}
+        id: summary
+        run: |
+          STATUS="${{ steps.run_tests.outcome }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "$STATUS" = "success" ]; then
+            echo "title=✅ Playwright – All tests PASSED" >> $GITHUB_OUTPUT
+          else
+            echo "title=❌ Playwright – Some tests FAILED" >> $GITHUB_OUTPUT
+          fi
+          echo "body=Repo: ${{ github.repository }} | Branch: ${{ github.ref_name }} | Trigger: ${{ github.event_name }} | Report: ${RUN_URL}" >> $GITHUB_OUTPUT
+
+      - name: Send email notification
+        if: ${{ !cancelled() }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          to: ${{ secrets.MAIL_TO }}
+          from: SwagLab CI <${{ secrets.MAIL_USERNAME }}>
+          subject: ${{ steps.summary.outputs.title }}
+          body: |
+            ${{ steps.summary.outputs.body }}
+
+            View report: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "add-products-to-cart",
+    "description": "After login, add 1st and 5th products by position; assert cart shows the captured names",
+    "usernameEnvKey": "E2E_VALID_USERNAME",
+    "passwordEnvKey": "E2E_VALID_PASSWORD",
+    "expectedInventoryVisibleText": "Products",
+    "productPositions": [1, 5]
+  }
+]
