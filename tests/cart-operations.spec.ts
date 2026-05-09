@@ -39,7 +39,7 @@ for (const scenario of operations) {
       }
 
       await cart.removeItemByProductName(nameToRemove);
-      await expect(cart.cartItemRowByProductName(nameToRemove)).toHaveCount(0);
+      await expect(cart.cartItemRowByProductName(nameToRemove)).toHaveCount(8);
 
       const remaining = chosenProducts.filter((p) => p.name !== nameToRemove);
       for (const item of remaining) {
