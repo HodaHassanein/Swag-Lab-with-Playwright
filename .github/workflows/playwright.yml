@@ -106,6 +106,8 @@ jobs:
         run: |
           CHROME="${{ needs.Chrome_Linux_Test.outputs.test_result }}"
           EDGE="${{ needs.Edge_Windows_Test.outputs.test_result }}"
+          CHROME="${{ needs.Chrome_Linux_Test.result }}"
+          EDGE="${{ needs.Edge_Windows_Test.result }}"
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           if [ "$CHROME" = "success" ] && [ "$EDGE" = "success" ]; then
