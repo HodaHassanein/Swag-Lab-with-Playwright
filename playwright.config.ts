@@ -51,11 +51,14 @@ export default defineConfig({
     },
   },
 
-  /* Chromium only — smaller install; add firefox/webkit projects if you need them */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'Chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    },
+    {
+      name: 'Edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
     },
   ],
 
