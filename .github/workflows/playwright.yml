@@ -5,8 +5,8 @@ on:
     branches:
       - main
   pull_request:
-  schedule:
-    - cron: '0 4 * * *'   # 06:00 Egypt (UTC+2) → 04:00 UTC
+  # schedule:
+  #   - cron: '0 4 * * *'   # 06:00 Egypt (UTC+2) → 04:00 UTC
   workflow_dispatch:
 
 concurrency:
