@@ -52,6 +52,23 @@ jobs:
         id: run_tests
         run: npx playwright test --project=Chrome
 
+      - name: Write Chrome Step Summary
+        if: ${{ !cancelled() }}
+        run: |
+          PASSED=$(jq '.stats.expected' test-results/results.json 2>/dev/null || echo "N/A")
+          FAILED=$(jq '.stats.unexpected' test-results/results.json 2>/dev/null || echo "N/A")
+          TOTAL=$(jq '.stats.expected + .stats.unexpected' test-results/results.json 2>/dev/null || echo "N/A")
+          if [ "${{ steps.run_tests.outcome }}" = "success" ]; then STATUS="PASSED"; else STATUS="FAILED"; fi
+          echo "## Playwright Test Results — Chrome on Linux" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Status**  | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Passed**  | $PASSED |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Failed**  | $FAILED |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Total**   | $TOTAL  |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch**  | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Trigger** | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+
       - name: Upload Chrome report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -87,6 +104,24 @@ jobs:
         continue-on-error: true
         id: run_tests
         run: npx playwright test --project=Edge
+
+      - name: Write Edge Step Summary
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          PASSED=$(jq '.stats.expected' test-results/results.json 2>/dev/null || echo "N/A")
+          FAILED=$(jq '.stats.unexpected' test-results/results.json 2>/dev/null || echo "N/A")
+          TOTAL=$(jq '.stats.expected + .stats.unexpected' test-results/results.json 2>/dev/null || echo "N/A")
+          if [ "${{ steps.run_tests.outcome }}" = "success" ]; then STATUS="PASSED"; else STATUS="FAILED"; fi
+          echo "## Playwright Test Results — Edge on Windows" >> $GITHUB_STEP_SUMMARY
+          echo "| | |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Status**  | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Passed**  | $PASSED |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Failed**  | $FAILED |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Total**   | $TOTAL  |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch**  | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Trigger** | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Edge report
         uses: actions/upload-artifact@v4
